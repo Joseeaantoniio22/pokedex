@@ -22,7 +22,7 @@ async function obtenerPokemon() {
         document.getElementById("nombre").textContent = pokemon.name.toUpperCase();
         document.getElementById("nombre").classList.add("marginTop");
         document.getElementById("imagen").src = pokemon.sprites.other.dream_world.front_default;
-        document.getElementById("favicon").setAttribute("href", pokemon.sprites.front_default);
+        document.getElementById("favicon").setAttribute("href", pokemon.sprites.other.dream_world.front_default);
         document.getElementById("favicon").setAttribute("sizes", "256x256");
         gif.src = response2.url;
         titulo.textContent = nombrePokemon.toUpperCase();
@@ -43,21 +43,18 @@ async function habilidadesPokemon() {
     try {
         const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${nombrePokemon}`);
         const pokemon = await response.json();
-        let tipos = '';
-        for (let i = 0; i < pokemon.abilities.length; i++) {
-            tipos += pokemon.abilities[i].ability.name;
-            if (i < pokemon.abilities.length - 1) {
-                tipos += ', '; 
-            }
+        for(let i =0 ; i < pokemon.abilities.length; i++){
+            const response2 = await fetch(pokemon.abilities[i].ability.url)
+            const habilidades = await response2.json();
+            console.log(habilidades.names[5].name);
         }
+
+
         document.getElementById("descripcion").textContent = tipos;
     } catch (error) {
         
     }
 }
-
-// Añadir un evento de clic a la pokeball cerrada
-
 
 // Llamar a la función cuando cargue la página
 obtenerPokemon();
@@ -65,5 +62,4 @@ habilidadesPokemon();
 async function recogerGif(){
     const response = await fetch(`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/showdown/${pokemon.id}.gif`);
     const data = await response.json();
-    console.log(data);
 }
