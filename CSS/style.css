@@ -111,11 +111,21 @@ main{
     padding-left: 5px;
 }
 
-.cargadorContenedor{
+.cargadorContenedor {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-left: 780px;
+    margin-left: -20%;
+    animation: moverDerecha 2.5s; /* Animación que se repite indefinidamente */
+}
+
+@keyframes moverDerecha {
+    0% {
+        transform: translateX(0); /* Empieza en la posición original */
+    }
+    100% {
+        transform: translateX(100%); /* Se mueve hacia la derecha */
+    }
 }
 
 
